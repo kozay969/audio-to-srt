@@ -2,8 +2,8 @@ name: Transcribe Audio
 on:
   workflow_dispatch:
     inputs:
-      audio_url:
-        description: 'YouTube Link'
+      file_name:
+        description: 'တင်ထားသော audio ဖိုင်နာမည် (ဥပမာ - test.mp3)'
         required: true
 
 jobs:
@@ -11,24 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Install yt-dlp
-        run: |
-          sudo curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp
-          sudo chmod a+rx /usr/local/bin/yt-dlp
-
-      - name: Download Audio from YouTube
-        run: |
-          yt-dlp -x --audio-format mp3 -o "input.mp3" "${{ github.event.inputs.audio_url }}"
-
       - name: Speech to Text
         uses: appleboy/whisper-action@v0.1.1
         with:
           model: small
-          audio_path: input.mp3
+          audio_path: ${{ github.event.inputs.file_name }}
           output_format: srt
           output_folder: output
-
       - name: Upload SRT
         uses: actions/upload-artifact@v4
         with:
