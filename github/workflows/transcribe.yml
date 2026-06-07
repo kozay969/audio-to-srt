@@ -10,7 +10,7 @@ jobs:
   transcribe:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Speech to Text
         uses: appleboy/whisper-action@v0.1.1
         with:
@@ -19,7 +19,7 @@ jobs:
           output_format: srt
           output_folder: output
       - name: Upload SRT
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: subtitle
           path: output/
