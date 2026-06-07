@@ -23,3 +23,11 @@ jobs:
         with:
           name: subtitle
           path: output/
+      - name: Speech to Text
+        uses: appleboy/whisper-action@v0.1.1
+        with:
+          model: small
+          audio_path: ./$ {{ github.event.inputs.file_name }} # ရှေ့မှာ ./ ထည့်လိုက်ပါ
+          output_format: srt
+          output_folder: output
+          
