@@ -1,0 +1,1 @@
+!whisper "6a6ec9c9e9a4124bf4102e4d61d71ec.m4a" --model medium --output_format srt
